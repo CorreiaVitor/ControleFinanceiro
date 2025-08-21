@@ -1,0 +1,25 @@
+services: 
+  db: 
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: controleFinanceiro
+      MYSQL_USER: vitor
+      MYSQL_PASSWORD: 7724
+    ports:
+      - 8011:3306
+    volumes: 
+      - db_financeiro:/var/lib/mysql
+  app: 
+    image: correiavitor43/web-server:5.0
+    volumes: 
+      - ./:/var/www/html
+    ports: 
+      - 8010:80
+    links: 
+      - db 
+    depends_on:
+      - db 
+    tty: true
+volumes: 
+  db_financeiro: {}
